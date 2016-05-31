@@ -45,15 +45,16 @@ public class UIMeetingOverview : MonoBehaviour
             Destroy(child.gameObject);
         }
         var meetings = ScheduleManager.Instance.GetMeetings();
+        var validMeetings = meetings.Where(m => m.IsValid()).ToArray();
         float contentWidth = content.sizeDelta.x;
-        float contentHeight = attendanceRenderer.sizeDelta.y * (meetings.Count + EmptyAttendanceSpace);
+        float contentHeight = attendanceRenderer.sizeDelta.y * (validMeetings.Length + EmptyAttendanceSpace);
         content.sizeDelta = new Vector2(contentWidth, contentHeight);
-        for (int i = 0; i < meetings.Count; i++)
+        for (int i = 0; i < validMeetings.Length; i++)
         {
             var attendanceRendererInstance = Instantiate(attendanceRenderer) as RectTransform;
             attendanceRendererInstance.SetParent(content);
             attendanceRendererInstance.anchoredPosition = new Vector2(0, -i * attendanceRenderer.sizeDelta.y);
-            var meeting = meetings[i];
+            var meeting = validMeetings[i];
             CreateMeetingUI(meeting, attendanceRendererInstance.gameObject);
         }
     }

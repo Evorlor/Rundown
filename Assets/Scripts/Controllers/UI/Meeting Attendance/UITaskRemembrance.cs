@@ -7,9 +7,9 @@ public class UITaskRemembrance : MonoBehaviour
     private const string TaskObjective = "Unknown Objective";
     private const string TaskDescription = "Unknown Description";
 
-    [Tooltip("text where task to be remembered will be input")]
+    [Tooltip("Input Field for task to be remembered will be input")]
     [SerializeField]
-    private Text taskToRemember;
+    private InputField taskToRemember;
 
     [Tooltip("Button pushed to remember task")]
     [SerializeField]
@@ -33,8 +33,6 @@ public class UITaskRemembrance : MonoBehaviour
         }
         var task = new Task(taskToRemember.text, TaskObjective, TaskDescription, 0);
         rememberedMeeting.AddTask(task);
-        Debug.Log("BEFORE: " + taskToRemember.text);
         taskToRemember.text = "";
-        Debug.Log("AFTER: " + taskToRemember.text);
     }
 }
